@@ -16,8 +16,8 @@ export const SearchPanel = () => {
   };
 
   useEffect(() => {
-    if (query.length >= 2) searchHandler();
-    if (query.length === 0) setResults([]);
+    if (query.trim() && query.length >= 2) searchHandler();
+    if (query.trim().length === 0) setResults([]);
   }, [query]);
 
   return (
