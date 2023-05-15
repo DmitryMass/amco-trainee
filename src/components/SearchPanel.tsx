@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 //
-import { useDebounce } from '@/customHooks/useDebounce';
 import { TUser } from '@/types/userTypes';
 
 export const SearchPanel = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<TUser[]>([]);
-  const { debounceString } = useDebounce(query, 500);
 
   const searchHandler = async () => {
     const res = await fetch(
-      `https://dummyjson.com/users/search?q=${debounceString
-        .trim()
-        .toLowerCase()}`
+      `https://dummyjson.com/users/search?q=${query.trim().toLowerCase()}`
     );
     const results = await res.json();
     setResults(results.users);
   };
 
   useEffect(() => {
-    if (debounceString.length && debounceString.trim()) searchHandler();
-    if (debounceString.length === 0) setResults([]);
-  }, [debounceString]);
+    if (query.length >= 2) searchHandler();
+    if (query.length === 0) setResults([]);
+  }, [query]);
 
   return (
     <div className='mb-[40px] max-w-[250px] w-full mx-auto relative'>
