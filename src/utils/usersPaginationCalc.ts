@@ -1,32 +1,27 @@
-export const usersPaginationCalc = (currentPage: number) => {
+export const getPaginationData = (currentPage: number) => {
   const totalPages = 10;
-  const pageNumbers = [];
-  if (totalPages <= 9) {
-    for (let i = 1; i <= totalPages; i++) {
+  const pageNumbers: (string | number)[] = [];
+  const addRange = (start: number, end: number) => {
+    for (let i = start; i <= end; i++) {
       pageNumbers.push(i);
     }
+  };
+
+  if (currentPage <= 4) {
+    addRange(1, 5);
+    pageNumbers.push('...');
+    pageNumbers.push(totalPages);
+  } else if (currentPage >= totalPages - 3) {
+    pageNumbers.push(1);
+    pageNumbers.push('...');
+    addRange(totalPages - 4, totalPages);
   } else {
-    if (currentPage <= 4) {
-      for (let i = 1; i <= 5; i++) {
-        pageNumbers.push(i);
-      }
-      pageNumbers.push('...');
-      pageNumbers.push(totalPages);
-    } else if (currentPage >= totalPages - 3) {
-      pageNumbers.push(1);
-      pageNumbers.push('...');
-      for (let i = totalPages - 4; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-    } else {
-      pageNumbers.push(1);
-      pageNumbers.push('...');
-      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-        pageNumbers.push(i);
-      }
-      pageNumbers.push('...');
-      pageNumbers.push(totalPages);
-    }
+    pageNumbers.push(1);
+    pageNumbers.push('...');
+    addRange(currentPage - 1, currentPage + 1);
+    pageNumbers.push('...');
+    pageNumbers.push(totalPages);
   }
+
   return { totalPages, pageNumbers };
 };

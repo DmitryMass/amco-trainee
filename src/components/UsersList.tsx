@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
-import { TUser, TUserProps } from '@/types/userTypes';
+import { TUser } from '@/types/userTypes';
 import { UserCard } from './UserCard';
 
-export const UsersList: FC<TUserProps> = ({ users }) => {
+type TUserListProps = {
+  users: TUser[];
+};
+
+export const UsersList: FC<TUserListProps> = ({ users }) => {
   if (!users || !users.length) {
     return null;
   }

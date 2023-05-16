@@ -8,16 +8,19 @@ export const SearchPanel = () => {
   const [results, setResults] = useState<TUser[]>([]);
 
   const searchHandler = async () => {
-    const res = await fetch(
-      `https://dummyjson.com/users/search?q=${query.trim().toLowerCase()}`
-    );
-    const results = await res.json();
-    setResults(results.users);
+    if (query.trim() && query.length > 1) {
+      const res = await fetch(
+        `https://dummyjson.com/users/search?q=${query.trim().toLowerCase()}`
+      );
+      const results = await res.json();
+      setResults(results.users);
+    } else {
+      setResults([]);
+    }
   };
 
   useEffect(() => {
-    if (query.trim() && query.length >= 2) searchHandler();
-    if (query.trim().length === 0) setResults([]);
+    searchHandler();
   }, [query]);
 
   return (
@@ -28,7 +31,7 @@ export const SearchPanel = () => {
       >
         User Finder
         <input
-          className='w-full roundend-[6px] px-[10px] py-[5px] outline-none focus:shadow-md rounded-[6px]'
+          className='w-full rounded-md px-[10px] py-[5px] outline-none focus:shadow-md'
           id='search'
           type='text'
           placeholder='Search users'
@@ -37,13 +40,17 @@ export const SearchPanel = () => {
         />
       </label>
       {results.length > 0 && (
-        <ul className='absolute top-[60px] left-0 px-[10px] py-[5px]  w-full shadow-md bg-white block rounded-[6px] border-[1px] border-gray-500 p-[20px] max-h-[250px] overflow-auto'>
+        <div className='absolute top-[60px] left-0 w-full shadow-md bg-white block rounded-md border-[1px] border-gray-500 max-h-[250px] overflow-auto'>
           {results.map((user) => (
-            <li key={user.id}>
-              <Link href={`/user/${user.id}`}>{user.firstName}</Link>
-            </li>
+            <Link
+              key={user.id}
+              className='block hover:bg-gray-200 px-[5px] py-[3px]'
+              href={`/users/${user.id}`}
+            >
+              {user.firstName}
+            </Link>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
