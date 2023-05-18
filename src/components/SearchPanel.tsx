@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 //
-import { TUser } from '@/types/userTypes';
+import { UserData } from '@/types/userTypes';
 
 export const SearchPanel = () => {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<TUser[]>([]);
+  const [results, setResults] = useState<UserData[]>([]);
 
   const searchHandler = async () => {
     if (query.trim() && query.length > 1) {

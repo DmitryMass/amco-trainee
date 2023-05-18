@@ -1,14 +1,18 @@
-import React from 'react';
-import { GetServerSidePropsContext } from 'next';
+import React, { FC } from 'react';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 //
 import { Pagination } from '@/components/Pagination';
 import { UsersList } from '@/components/UsersList';
 import { SearchPanel } from '@/components/SearchPanel';
 //
-import { UserService } from '@/services/userService';
-import { TUserProps } from '@/types/userTypes';
+import { UserData } from '@/types/userTypes';
+import { getUsers } from '@/utils/usersApi';
 
-export const getServerSideProps = async (
+type UsersPageProps = {
+  users: UserData[];
+};
+
+export const getServerSideProps: GetServerSideProps<UsersPageProps> = async (
   context: GetServerSidePropsContext
 ) => {
   const { query } = context;
@@ -16,7 +20,7 @@ export const getServerSideProps = async (
   if (Number(query.page) >= 0) currentPage = Number(query.page);
   const skip = (currentPage - 1) * 10;
 
-  const users = await UserService.getUsers(skip);
+  const users = await getUsers(skip);
 
   if (!users) {
     return {
@@ -28,7 +32,7 @@ export const getServerSideProps = async (
   };
 };
 
-const Users = ({ users }: TUserProps) => {
+const UsersPage: FC<UsersPageProps> = ({ users }) => {
   return (
     <div className='px-[10px] py-[30px] bg-gray-200'>
       <SearchPanel />
@@ -38,4 +42,4 @@ const Users = ({ users }: TUserProps) => {
   );
 };
 
-export default Users;
+export default UsersPage;

@@ -1,11 +1,7 @@
-export type TUser = {
+export type UserData = {
   id: number;
   firstName: string;
   lastName: string;
   age: number;
   email: string;
-};
-
-export type TUserProps = {
-  users: TUser[];
 };

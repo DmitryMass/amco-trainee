@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
-import { TUser } from '@/types/userTypes';
+import { UserData } from '@/types/userTypes';
 
-type TUserCardProps = {
-  data: TUser;
+type UserCardProps = {
+  data: UserData;
 };
 
-export const UserCard: FC<TUserCardProps> = ({ data }) => {
+export const UserCard: FC<UserCardProps> = ({ data }) => {
   return (
     <>
       <Link

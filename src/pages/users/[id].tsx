@@ -1,15 +1,19 @@
 import React, { FC } from 'react';
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 //
-import { UserService } from '@/services/userService';
-import { TUser } from '@/types/userTypes';
+import { UserData } from '@/types/userTypes';
+import { getUserData } from '@/utils/usersApi';
 
-export const getServerSideProps = async (
+type UserPageProps = {
+  userData: UserData;
+};
+
+export const getServerSideProps: GetServerSideProps<UserPageProps> = async (
   context: GetServerSidePropsContext
 ) => {
   const { query } = context;
-  const userData = await UserService.getUserData(query.id as string);
+  const userData = await getUserData(query.id as string);
 
   if (!userData) {
     return {
@@ -22,7 +26,7 @@ export const getServerSideProps = async (
   };
 };
 
-const UserPage: FC<{ userData: TUser }> = ({ userData }) => {
+const UserPage: FC<UserPageProps> = ({ userData }) => {
   const router = useRouter();
   return (
     <div className='max-w-[576px] w-full mx-auto px-[10px] py-[30px] bg-gray-200 rounded'>
