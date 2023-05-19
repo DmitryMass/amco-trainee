@@ -1,19 +1,18 @@
 import React, { FC } from 'react';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 //
-import { UserData } from '@/types/userTypes';
-import { getUserData } from '@/utils/usersApi';
+import type { UserData } from '@/types/userTypes';
+import { getUserData } from '@/utils/usersUtils';
 
 type UserPageProps = {
   userData: UserData;
 };
 
 export const getServerSideProps: GetServerSideProps<UserPageProps> = async (
-  context: GetServerSidePropsContext
+  ctx
 ) => {
-  const { query } = context;
-  const userData = await getUserData(query.id as string);
+  const userData = await getUserData(ctx.query.id as string);
 
   if (!userData) {
     return {

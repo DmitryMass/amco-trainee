@@ -1,8 +1,9 @@
-import { Layout } from '@/components/Layout';
+import { FC } from 'react';
+import { Layout } from '@/components/layout/Layout';
 import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <Layout>
       <Component {...pageProps} />

@@ -1,23 +1,22 @@
 import React, { FC } from 'react';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { GetServerSideProps } from 'next';
 //
 import { Pagination } from '@/components/Pagination';
 import { UsersList } from '@/components/UsersList';
 import { SearchPanel } from '@/components/SearchPanel';
 //
-import { UserData } from '@/types/userTypes';
-import { getUsers } from '@/utils/usersApi';
+import type { UserData } from '@/types/userTypes';
+import { getUsers } from '@/utils/usersUtils';
 
 type UsersPageProps = {
   users: UserData[];
 };
 
 export const getServerSideProps: GetServerSideProps<UsersPageProps> = async (
-  context: GetServerSidePropsContext
+  ctx
 ) => {
-  const { query } = context;
   let currentPage = 0;
-  if (Number(query.page) >= 0) currentPage = Number(query.page);
+  if (Number(ctx.query.page) >= 0) currentPage = Number(ctx.query.page);
   const skip = (currentPage - 1) * 10;
 
   const users = await getUsers(skip);

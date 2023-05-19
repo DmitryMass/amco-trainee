@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Nav } from './Nav';
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <header className='min-h-[80px]'>

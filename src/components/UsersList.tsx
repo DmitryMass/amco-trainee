@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { UserCard } from './UserCard';
-import { UserData } from '@/types/userTypes';
+import type { UserData } from '@/types/userTypes';
 
 type UserListProps = {
   users: UserData[];

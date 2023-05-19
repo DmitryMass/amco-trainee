@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
-import { UserData } from '@/types/userTypes';
+import type { UserData } from '@/types/userTypes';
 
 type UserCardProps = {
   data: UserData;

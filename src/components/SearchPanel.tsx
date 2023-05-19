@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 //
-import { UserData } from '@/types/userTypes';
+import type { UserData } from '@/types/userTypes';
 
-export const SearchPanel = () => {
+export const SearchPanel: FC = () => {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<UserData[]>([]);
+  const [foundUsers, setFoundUsers] = useState<UserData[]>([]);
 
   const searchHandler = async () => {
     if (query.trim() && query.length > 1) {
       const res = await fetch(
-        `https://dummyjson.com/users/search?q=${query.trim().toLowerCase()}`
+        `https://dummyjson.com/users/search?q=${query.trim()}`
       );
       const results = await res.json();
-      setResults(results.users);
+      setFoundUsers(results.users);
     } else {
-      setResults([]);
+      setFoundUsers([]);
     }
   };
 
@@ -39,9 +39,9 @@ export const SearchPanel = () => {
           onChange={(e) => setQuery(e.target.value)}
         />
       </label>
-      {results.length > 0 && (
+      {foundUsers.length > 0 && (
         <div className='absolute top-[60px] left-0 w-full shadow-md bg-white block rounded-md border-[1px] border-gray-500 max-h-[250px] overflow-auto'>
-          {results.map((user) => (
+          {foundUsers.map((user) => (
             <Link
               key={user.id}
               className='block hover:bg-gray-200 px-[5px] py-[3px]'
