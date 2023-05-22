@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
-import { Pagination } from '@/components/Pagination';
-import { UsersList } from '@/components/UsersList';
-import { SearchPanel } from '@/components/SearchPanel';
-import type { UserData } from '@/types/userTypes';
-import { getUsers } from '@/utils/usersUtils';
+import { SearchPanel } from '../../components/SearchPanel';
+import { UsersList } from '../../components/UsersList';
+import { Pagination } from '../../components/Pagination';
+import { getUsers } from '../../utils/usersUtils';
+import type { UserData } from '../../types';
 
 type UsersPageProps = {
   users: UserData[];

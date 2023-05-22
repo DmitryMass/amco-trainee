@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
-import type { UserData } from '@/types/userTypes';
+import type { UserData } from '../types';
 
 export const SearchPanel: FC = () => {
   const [query, setQuery] = useState('');

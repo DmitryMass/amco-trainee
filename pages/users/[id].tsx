@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import type { UserData } from '@/types/userTypes';
-import { getUserData } from '@/utils/usersUtils';
+import { getUserData } from '../../utils/usersUtils';
+import type { UserData } from '../../types';
 
 type UserPageProps = {
   userData: UserData;

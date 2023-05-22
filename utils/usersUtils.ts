@@ -1,4 +1,4 @@
-import type { UserData } from '@/types/userTypes';
+import type { UserData } from '../types';
 
 export const getUsers = async (skipData: number): Promise<UserData[]> => {
   const res = await fetch(

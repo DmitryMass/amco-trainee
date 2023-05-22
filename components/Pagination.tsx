@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { getPaginationData } from '@/utils/usersPaginationCalc';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
+import { getPaginationData } from '../utils/usersPaginationCalc';
 
 export const Pagination: FC = () => {
   const router = useRouter();
