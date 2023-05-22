@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-//
 import { getPaginationData } from '@/utils/usersPaginationCalc';
+import clsx from 'clsx';
 
 export const Pagination: FC = () => {
   const router = useRouter();
@@ -14,9 +14,10 @@ export const Pagination: FC = () => {
       <Link href={`/users?page=${currentPage - 1}`} passHref>
         <button
           disabled={currentPage === 1}
-          className={`text-white flex items-center justify-center w-[30px] h-[25px] px-[10px] py-[5px] shadow-md cursor-pointer rounded-md text-sm font-semibold hover:scale-[1.03] ${
+          className={clsx(
+            'text-white flex items-center justify-center w-[30px] h-[25px] px-[10px] py-[5px] shadow-md cursor-pointer rounded-md text-sm font-semibold hover:scale-[1.03]',
             currentPage === 1 ? 'bg-gray-400' : 'bg-gray-600'
-          }`}
+          )}
         >
           {'<'}
         </button>
@@ -32,9 +33,10 @@ export const Pagination: FC = () => {
         ) : (
           <Link
             href={`/users?page=${pageNumber}`}
-            className={`text-white flex items-center justify-center w-[30px] h-[25px] px-[10px] py-[5px] shadow-md cursor-pointer rounded-md text-sm font-semibold hover:scale-[1.03] ${
+            className={clsx(
+              'text-white flex items-center justify-center w-[30px] h-[25px] px-[10px] py-[5px] shadow-md cursor-pointer rounded-md text-sm font-semibold hover:scale-[1.03]',
               pageNumber === currentPage ? 'bg-gray-400' : 'bg-gray-600'
-            }`}
+            )}
             key={index}
           >
             {pageNumber}
@@ -44,9 +46,10 @@ export const Pagination: FC = () => {
       <Link href={`/users?page=${currentPage + 1}`} passHref>
         <button
           disabled={currentPage === totalPages}
-          className={`text-white flex items-center justify-center w-[30px] h-[25px] px-[10px] py-[5px] shadow-md cursor-pointer rounded-md text-sm font-semibold hover:scale-[1.03] ${
-            currentPage === totalPages ? 'bg-gray-400' : 'bg-gray-600'
-          }`}
+          className={clsx(
+            'text-white flex items-center justify-center w-[30px] h-[25px] px-[10px] py-[5px] shadow-md cursor-pointer rounded-md text-sm font-semibold hover:scale-[1.03]',
+            currentPage === 1 ? 'bg-gray-400' : 'bg-gray-600'
+          )}
         >
           {'>'}
         </button>

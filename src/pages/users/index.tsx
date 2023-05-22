@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
-//
 import { Pagination } from '@/components/Pagination';
 import { UsersList } from '@/components/UsersList';
 import { SearchPanel } from '@/components/SearchPanel';
-//
 import type { UserData } from '@/types/userTypes';
 import { getUsers } from '@/utils/usersUtils';
 
@@ -15,7 +13,7 @@ type UsersPageProps = {
 export const getServerSideProps: GetServerSideProps<UsersPageProps> = async (
   ctx
 ) => {
-  let currentPage = 0;
+  let currentPage = 1;
   if (Number(ctx.query.page) >= 0) currentPage = Number(ctx.query.page);
   const skip = (currentPage - 1) * 10;
 

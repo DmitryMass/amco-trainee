@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
-//
 import type { UserData } from '@/types/userTypes';
 
 export const SearchPanel: FC = () => {

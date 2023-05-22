@@ -1,6 +1,6 @@
 import type { UserData } from '@/types/userTypes';
 
-export const getUsers = async (skipData: number = 0): Promise<UserData[]> => {
+export const getUsers = async (skipData: number): Promise<UserData[]> => {
   const res = await fetch(
     `https://dummyjson.com/users?limit=10&skip=${skipData}`
   );

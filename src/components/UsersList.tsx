@@ -14,7 +14,7 @@ export const UsersList: FC<UserListProps> = ({ users }) => {
   return (
     <div className='grid grid-cols-3 gap-[5px] max-[768px]:grid-cols-2 max-[576px]:grid-cols-1'>
       {users.map((user) => (
-        <UserCard key={user.id} data={user} />
+        <UserCard key={user.id} user={user} />
       ))}
     </div>
   );
