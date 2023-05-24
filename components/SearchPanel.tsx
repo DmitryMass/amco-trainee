@@ -1,26 +1,39 @@
 import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { UserData } from '../types';
+import { useDebounceValue } from '../hooks/useDebaunceValue';
+
+const foundUsersCache: Record<string, UserData[]> = {
+  '': [],
+};
 
 export const SearchPanel: FC = () => {
   const [query, setQuery] = useState('');
   const [foundUsers, setFoundUsers] = useState<UserData[]>([]);
-
-  const searchHandler = async () => {
-    if (query.trim() && query.length > 1) {
-      const res = await fetch(
-        `https://dummyjson.com/users/search?q=${query.trim()}`
-      );
-      const results = await res.json();
-      setFoundUsers(results.users);
-    } else {
-      setFoundUsers([]);
-    }
-  };
+  const debauncedString = useDebounceValue(query, 500);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const searchHandler = async () => {
+      if (debauncedString.trim()) {
+        if (!foundUsersCache[debauncedString]) {
+          const res = await fetch(
+            `https://dummyjson.com/users/search?q=${debauncedString.trim()}`,
+            { signal: controller.signal }
+          );
+          const results = await res.json();
+          foundUsersCache[debauncedString] = results.users;
+          setFoundUsers(results.users);
+        } else {
+          setFoundUsers(foundUsersCache[debauncedString]);
+        }
+      } else {
+        setFoundUsers(foundUsersCache['']);
+      }
+    };
     searchHandler();
-  }, [query]);
+    return () => controller.abort();
+  }, [debauncedString]);
 
   return (
     <div className='mb-[40px] max-w-[250px] w-full mx-auto relative'>
