@@ -13,3 +13,9 @@ export const getUserData = async (id: string): Promise<UserData> => {
   const data = await res.json();
   return data;
 };
+
+export const getTableUsers = async (): Promise<UserData[]> => {
+  const res = await fetch('https://dummyjson.com/users?limit=100');
+  const data = await res.json();
+  return data.users;
+};

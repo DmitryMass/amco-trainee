@@ -4,4 +4,10 @@ export type UserData = {
   lastName: string;
   age: number;
   email: string;
+  height: string;
+  weight: string;
+};
+
+export type TablePageProps = {
+  users: UserData[];
 };
