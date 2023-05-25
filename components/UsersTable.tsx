@@ -36,12 +36,11 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
 
   useEffect(() => {
     if (sortBy) {
-      const loadTimeout = setTimeout(() => {
-        push(`/table?sortBy=${sortBy}&sortOrder=${sortOrder}`);
-      }, 300);
-      return () => clearTimeout(loadTimeout);
+      push(`/table?sortBy=${sortBy}&sortOrder=${sortOrder}`, '', {
+        shallow: true,
+      });
     }
-  }, [sortBy, sortOrder, push]);
+  }, [sortBy, sortOrder]);
 
   const sortedData = useUsersSort({ sortBy, sortOrder, users });
   useEffect(() => {
