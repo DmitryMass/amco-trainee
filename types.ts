@@ -4,10 +4,13 @@ export type UserData = {
   lastName: string;
   age: number;
   email: string;
-  height: string;
-  weight: string;
+  height: number;
+  weight: number;
 };
 
 export type TablePageProps = {
   users: UserData[];
 };
+
+export type SortOrder = 'asc' | 'desc';
+export type SortByCategory = 'id' | 'Name' | 'Age' | 'Weight' | 'Height' | null;
