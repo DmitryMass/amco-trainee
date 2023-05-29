@@ -1,51 +1,21 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import type { SortByCategory, SortOrder, UserData } from '../types';
 import { useRouter } from 'next/router';
-import { useUsersSort } from '../hooks/useUsersSort';
 
 const tableTitle = ['id', 'Name', 'Age', 'Weight', 'Height'];
-const orderValues = ['asc', 'desc'];
 
 type UsersTableProps = {
   users: UserData[];
 };
 
 const UsersTable: FC<UsersTableProps> = ({ users }) => {
-  const [sortBy, setSortBy] = useState<SortByCategory>(null);
-  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
-  const [sortedUsers, setSortedUsers] = useState<UserData[]>(users);
-  const { query, push } = useRouter();
-
-  const handleSort = (sortedValue: SortByCategory) => {
-    if (sortedValue === sortBy) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortOrder('asc');
-      setSortBy(sortedValue);
-    }
+  const router = useRouter();
+  const { sortBy, sortOrder = 'asc' } = router.query;
+  const handleHeaderClick = (sortByHeader: SortByCategory) => {
+    const newSortOrder: SortOrder =
+      sortByHeader === sortBy && sortOrder === 'asc' ? 'desc' : 'asc';
+    router.push(`/table?sortBy=${sortByHeader}&sortOrder=${newSortOrder}`);
   };
-
-  useEffect(() => {
-    if (query.sortBy && tableTitle.includes(query.sortBy as string)) {
-      setSortBy(query.sortBy as SortByCategory);
-    }
-    if (query.sortOrder && orderValues.includes(query.sortOrder as string)) {
-      setSortOrder(query.sortOrder as SortOrder);
-    }
-  }, [query.sortBy, query.sortOrder]);
-
-  useEffect(() => {
-    if (sortBy) {
-      push(`/table?sortBy=${sortBy}&sortOrder=${sortOrder}`, '', {
-        shallow: true,
-      });
-    }
-  }, [sortBy, sortOrder]);
-
-  const sortedData = useUsersSort({ sortBy, sortOrder, users });
-  useEffect(() => {
-    setSortedUsers(sortedData);
-  }, [sortedData]);
 
   return (
     <>
@@ -56,7 +26,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
               <th
                 className='border border-gray-700 cursor-pointer hover:bg-gray-400 transition-all duration-150'
                 key={category}
-                onClick={() => handleSort(category as SortByCategory)}
+                onClick={() => handleHeaderClick(category as SortByCategory)}
               >
                 {category}
               </th>
@@ -64,8 +34,8 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedUsers &&
-            sortedUsers.map((user) => (
+          {users &&
+            users.map((user) => (
               <tr key={user.id}>
                 <td className='border border-gray-700'>{user.id}</td>
                 <td className='border border-gray-700'>{user.firstName}</td>

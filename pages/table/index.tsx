@@ -1,22 +1,29 @@
-import { GetServerSideProps } from 'next';
 import React, { FC } from 'react';
-import type { TablePageProps } from '../../types';
-import { getTableUsers } from '../../utils/usersUtils';
+import { GetServerSideProps } from 'next';
 import UsersTable from '../../components/UsersTable';
+import { getTableUsers } from '../../utils/usersUtils';
+import { sortUsers } from '../../utils/usersSort';
+import { SortByCategory } from '../../types';
+import type { SortOrder, TablePageProps } from '../../types';
 
-export const getServerSideProps: GetServerSideProps<
-  TablePageProps
-> = async () => {
+export const getServerSideProps: GetServerSideProps<TablePageProps> = async ({
+  query,
+}) => {
   const users = await getTableUsers();
-
   if (!users) {
     return {
       notFound: true,
     };
   }
+  const { sortBy, sortOrder = 'asc' } = query;
+  const sortedUsers = sortUsers(
+    users,
+    sortBy as SortByCategory,
+    sortOrder as SortOrder
+  );
 
   return {
-    props: { users },
+    props: { users: sortedUsers },
   };
 };
 
