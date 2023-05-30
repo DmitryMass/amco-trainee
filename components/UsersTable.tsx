@@ -17,6 +17,10 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
     router.push(`/table?sortBy=${sortByHeader}&sortOrder=${newSortOrder}`);
   };
 
+  if (!users || !users.length) {
+    return null;
+  }
+
   return (
     <>
       <table className='table-auto max-w-[540px] mx-auto w-full px-[10px] py-[30px] bg-gray-200'>
@@ -34,16 +38,15 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
           </tr>
         </thead>
         <tbody>
-          {users &&
-            users.map((user) => (
-              <tr key={user.id}>
-                <td className='border border-gray-700'>{user.id}</td>
-                <td className='border border-gray-700'>{user.firstName}</td>
-                <td className='border border-gray-700'>{user.age}</td>
-                <td className='border border-gray-700'>{user.weight}</td>
-                <td className='border border-gray-700'>{user.height}</td>
-              </tr>
-            ))}
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td className='border border-gray-700'>{user.id}</td>
+              <td className='border border-gray-700'>{user.firstName}</td>
+              <td className='border border-gray-700'>{user.age}</td>
+              <td className='border border-gray-700'>{user.weight}</td>
+              <td className='border border-gray-700'>{user.height}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>
