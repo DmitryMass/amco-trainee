@@ -8,7 +8,7 @@ type LayoutProps = {
 export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <header className='min-h-[80px]'>
+      <header className='min-h-[80px] max-w-[1320px] px-[15px] mx-auto w-full'>
         <Nav />
       </header>
       <main className='max-w-[1320px] px-[15px] mx-auto w-full h-full'>
