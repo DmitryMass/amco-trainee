@@ -1,5 +1,5 @@
 import React, { FC, createContext, useEffect, useState } from 'react';
-import type { CartItem, Product } from '../types';
+import type { CartItem, Product } from '../../types';
 
 type CartProviderProps = {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ type CartContextProps = {
   cartItems: CartItem[];
   addToCart: (product: Product) => void;
   removeItem: (id: number) => void;
-  removeItems: () => void;
+  clearCart: () => void;
 };
 
 export const CartContext = createContext<CartContextProps | null>(null);
@@ -23,9 +23,11 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
     }
   }, []);
 
-  const saveCartItemsToLocalStorage = (items: CartItem[]) => {
-    localStorage.setItem('cartItems', JSON.stringify(items));
-  };
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
 
   const addToCart = (product: Product) => {
     const currProduct = cartItems.find((item) => item.id === product.id);
@@ -39,26 +41,33 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
       setCartItems(newItem);
     }
   };
-
-  const removeItems = () => {
+  const clearCart = () => {
     setCartItems([]);
     localStorage.removeItem('cartItems');
   };
 
-  const removeItem = (productId: number) => {
-    const updatedItems = cartItems.filter((item) => item.id !== productId);
-    setCartItems(updatedItems);
-  };
-
-  useEffect(() => {
-    if (cartItems.length > 0) {
-      saveCartItemsToLocalStorage(cartItems);
+  const removeItem = (id: number) => {
+    const currProduct = cartItems.find((item) => item.id === id);
+    if (currProduct) {
+      if (currProduct.quantity > 1) {
+        const updatedCartItems = cartItems.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        );
+        setCartItems(updatedCartItems);
+      } else {
+        const updatedCartItems = cartItems.filter((item) => item.id !== id);
+        if (updatedCartItems.length === 0) {
+          clearCart();
+        } else {
+          setCartItems(updatedCartItems);
+        }
+      }
     }
-  }, [cartItems]);
+  };
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeItems, removeItem }}
+      value={{ cartItems, addToCart, clearCart, removeItem }}
     >
       {children}
     </CartContext.Provider>
