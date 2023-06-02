@@ -1,65 +1,73 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import type { Product } from '../../types';
 import { useCartContext } from '../../hooks/useCartContext';
+import Image from 'next/image';
 import clsx from 'clsx';
-import { ProductRate } from './ProductRate';
 
 type ProductItemProps = {
   product: Product;
 };
 
 export const ProductItem: FC<ProductItemProps> = ({ product }) => {
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const { cartItems } = useCartContext();
+  const [isDescription, setIsDescription] = useState(false);
   const { addToCart } = useCartContext();
+  const isInCart = cartItems.find((item) => item.id === product.id);
+
+  useEffect(() => {
+    if (isDescription) {
+      let timeout = setTimeout(() => {
+        setIsDescription(false);
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isDescription]);
 
   return (
-    <div className='flex flex-col max-w-[240px] font-contrail w-full max-[576px]:max-w-full bg-[#313791] pt-[25px] rounded-md shadow-sm shadow-blue-400'>
-      <div className='bg-[#061C52] flex-1 min-h-[300px] relative'>
-        <div
-          className='bg-[#F99B1D] cursor-pointer max-w-[170px] absolute left-0 bottom-[30%] px-[15px] py-[10px] '
-          onMouseEnter={() => setIsTooltipVisible(true)}
-          onMouseLeave={() => setIsTooltipVisible(false)}
-        >
-          <h3 className='text-base text-white font-medium text-ellipsis grow overflow-hidden whitespace-nowrap'>
-            {product.title}
-          </h3>
-        </div>
-        <div
-          className={clsx(
-            'absolute z-10 bottom-[45%] bg-gray-400  left-0  px-[5px] transition-all duration-150',
-            isTooltipVisible ? 'visible opacity-100' : 'invisible opacity-0'
-          )}
-        >
-          <span className='block p-[5px] text-white text-xs font-medium'>
-            {product.title}
-          </span>
-        </div>
-        <div className='absolute  bottom-[15%] tracking-wide left-[10px] text-white text-lg font-semibold'>
-          ${product.price}
-        </div>
-        <div
-          className={clsx(
-            'relative bg-[#ffe3fc] flex max-w-[120px] ml-auto mt-[25px] mr-[25px] max-h-[130px] h-full',
-            'after:absolute after:w-[160px] after:h-[160px] after:border-[2px] after:border-pink-500 after:border-opacity-80 after:right-[-15px] after:top-[-15px]',
-            'before:absolute before:w-[160px] before:h-[160px] before:border-[2px] before:border-blue-500 before:border-opacity-80 before:right-[-20px] before:top-[-10px]'
-          )}
-        >
+    <div
+      className={clsx(
+        'flex flex-col justify-between font-contrail min-h-[200px] w-full bg-white p-2.5 cursor-pointer relative',
+        'shadow-[0px_2px_5px__0px_rgba(0,0,0,.15)] hover:shadow-[0px_2px_5px__0px_rgba(0,0,0,.25)]'
+      )}
+    >
+      <div
+        className={clsx(
+          'w-[20px] h-[17px] flex justify-center ml-auto transition-all duration-150 relative',
+          isDescription ? 'scale-[1.2]' : 'scale-100'
+        )}
+        onClick={() => setIsDescription((prev) => !prev)}
+      >
+        <Image src={'/icons/product-info.svg'} alt={'shopping cart'} fill />
+      </div>
+      <div className='flex items-center  justify-between  gap-2.5 mb-4'>
+        <h4 className='text-sm text-gray-600 pointer-events-none'>
+          {product.title}
+        </h4>
+        <div className='max-w-[100px] max-h-[130px] h-full'>
           <img
-            className='aspect-[3/2] w-[100%] object-contain mix-blend-multiply '
+            className='aspect-square w-full object-contain mix-blend-multiply '
             src={product.image}
             alt='product-img'
           />
         </div>
+      </div>
+      <div className='flex justify-between items-center '>
+        <span className='text-lg text-black font-medium pointer-events-none'>
+          ${product.price}
+        </span>
         <button
+          disabled={!!isInCart}
           onClick={() => addToCart(product)}
-          className={clsx(
-            'absolute  uppercase bg-black text-white bottom-[20px] right-[10px] max-w-[100px] w-full p-[5px]'
-          )}
+          className='text-[10px] rounded-md  uppercase bg-black text-white font-medium max-w-[150px] w-full p-1'
         >
-          Shop Now
+          {isInCart ? 'В Корзине' : 'Добавить в корзину'}
         </button>
       </div>
-      <ProductRate rating={product.rating} />
+      {isDescription ? (
+        <div className='absolute top-full left-0 z-10 w-full text-xs bg-white shadow-[0px_2px_4px__0px_rgba(0,0,0,.25)] p-2.5'>
+          {product.description}
+        </div>
+      ) : null}
     </div>
   );
 };

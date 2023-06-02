@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { Nav } from './Nav';
+import { Footer } from '../Footer';
+import { Backdrop } from '../Backdrop';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -8,12 +10,12 @@ type LayoutProps = {
 export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <header className='w-full fixed z-10 bg-[#061c52] shadow-md'>
+      <Backdrop />
+      <header className='w-full fixed z-10 bg-fixed shadow-md bg-[url(../public/images/black-bgc.png)]'>
         <Nav />
       </header>
-      <main className='max-w-[1320px] pt-[90px] px-[15px] mx-auto w-full h-full'>
-        {children}
-      </main>
+      <main className='pt-10'>{children}</main>
+      <Footer />
     </>
   );
 };

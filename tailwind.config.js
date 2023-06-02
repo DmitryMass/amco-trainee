@@ -6,9 +6,15 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    minHeight: {
+      previewCalc: 'calc(100vh - 57px)',
+    },
     extend: {
       fontFamily: {
         contrail: ['Contrail One', 'cursive'],
+      },
+      textColor: {
+        lightGray: '#c0c0c0',
       },
     },
   },

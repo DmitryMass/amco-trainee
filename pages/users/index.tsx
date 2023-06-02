@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<UsersPageProps> = async (
 
 const UsersPage: FC<UsersPageProps> = ({ users }) => {
   return (
-    <div className='px-[10px] py-[30px] bg-gray-200'>
+    <div className='px-[10px] py-[30px] max-w-[1320px] mx-auto w-full'>
       <SearchPanel />
       <UsersList users={users} />
       <Pagination />

@@ -2,6 +2,8 @@ import React, { FC, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useCartContext } from '../../hooks/useCartContext';
 import clsx from 'clsx';
+import closeLogo from '../../public/icons/close-logo.svg';
+import cartLogo from '../../public/icons/cart.svg';
 
 export const Cart: FC = () => {
   const { cartItems, removeItem, clearCart } = useCartContext();
@@ -18,17 +20,12 @@ export const Cart: FC = () => {
     <>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className='relative block pr-[10px]'
+        className='relative block pr-2.5'
       >
-        <Image
-          src={'/icons/cart.svg'}
-          alt={'shopping cart'}
-          width={30}
-          height={30}
-        />
+        <Image src={cartLogo} alt={'shopping cart'} width={30} height={30} />
         <div
           className={clsx(
-            'flex justify-center items-center bg-green-600 py-[2px] px-[8px] text-white rounded-full absolute top-[-17px] right-[0px] font-semibold text-xs transition-all',
+            'flex justify-center items-center text-xs bg-orange-600 min-w-[20px] min-h-[20px] text-white rounded-full absolute top-[-4px] right-0 font-medium ',
             quantityCount !== 0 ? 'animate-bounce' : ''
           )}
         >
@@ -37,18 +34,19 @@ export const Cart: FC = () => {
       </button>
       <div
         className={clsx(
-          'w-6/12 max-[460px]:w-full h-full bg-black text-white fixed top-0 right-0 transition-all duration-200',
+          'w-6/12 max-[460px]:w-full h-full bg-black text-white fixed top-0 right-0 transition-all duration-200 bg-[url(../public/images/black-bgc.png)] bg-center p-2.5 border-l-4 border-opacity-40 border-white ',
           isOpen ? 'visible translate-x-0' : 'invisible  translate-x-[100%]'
         )}
       >
         <button
-          className='text-white'
+          className='w-[30px] block ml-auto mix-blend-plus-lighter invert hover:invert-0 transition-all duration-100 mb-5'
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          CLOSE
+          <Image src={closeLogo} alt={'shopping cart'} width={30} height={30} />
         </button>
         {cartItems?.length ? (
           <div>
+            <h3 className='text-lightGray'>Personal cart</h3>
             {cartItems.map((item) => (
               <div onClick={() => removeItem(item.id)} key={item.id}>
                 <span>
@@ -56,10 +54,14 @@ export const Cart: FC = () => {
                 </span>
               </div>
             ))}
-            <button onClick={() => clearCart()}>CLEAR CART</button>
+            <button onClick={() => clearCart()}>Clear cart</button>
           </div>
         ) : (
-          <div>Your cart is Empty</div>
+          <div className='flex h-full justify-center items-center'>
+            <h2 className='text-lightGray text-lg uppercase'>
+              Your cart is Empty
+            </h2>
+          </div>
         )}
       </div>
     </>
