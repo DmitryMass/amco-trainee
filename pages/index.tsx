@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] });
 const Home: FC = () => {
   return (
     <div className={inter.className}>
-      <div className='pt-[30px]'>
+      <div className='pt-[30px] max-w-[1320px] mx-auto px-[15px]'>
         <h1 className='text-[25px] leading-[32px] font-bold mb-[20px]'>
           Home Page.
         </h1>

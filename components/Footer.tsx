@@ -32,7 +32,7 @@ export const Footer: FC = () => {
       <section className='bg-[#000000e8]'>
         <div className='py-2.5 px-[15px] max-w-[1320px] mx-auto w-full flex items-center justify-between'>
           <span className='text-white text-xs'>
-            &#169; {new Date().getFullYear()} Jimmy-Co Shop
+            &#169; {new Date().getFullYear()} Jimmy-Co Global
           </span>
           <h2 className='text-white text-xs '>All rights reserved</h2>
         </div>

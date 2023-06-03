@@ -7,7 +7,7 @@ type PreviewProps = {
 
 export const Preview: FC<PreviewProps> = ({ scroll }) => {
   return (
-    <div className=' bg-[url(../public/images/black-bgc.png)] bg-center bg-fixed'>
+    <div className='min-h-previewCalc bg-[url(../public/images/black-bgc.png)] bg-center bg-fixed'>
       <div
         className={clsx(
           'w-full relative min-h-previewCalc font-contrail overflow-hidden pt-[20px]  flex justify-between items-center max-w-[1520px] mx-auto',
@@ -29,17 +29,17 @@ export const Preview: FC<PreviewProps> = ({ scroll }) => {
             <span className='text-[70px] font-bold max-[450px]:text-5xl'>
               Shop
             </span>
-            <span className='text-[70px] font-bold ml-28 max-[768px]:ml-14 max-[450px]:text-5xl'>
+            <span className='text-[70px] font-bold ml-28 max-md:ml-14 max-[450px]:text-5xl'>
               Explore
             </span>
-            <span className='text-[70px] font-bold ml-52 max-[768px]:ml-28 max-[450px]:text-5xl'>
+            <span className='text-[70px] font-bold ml-52 max-md:ml-28 max-[450px]:text-5xl'>
               Discover
             </span>
             <p className='text-2xl'>Find your perfect style</p>
           </div>
         </div>
         <button
-          className='absolute cursor-pointer z-[5] bottom-[10px] animate-bounce inset-x-0 w-[30px] h-[30px] mx-auto
+          className='absolute cursor-pointer z-[5] bottom-2.5 animate-bounce inset-x-0 w-[30px] h-[30px] mx-auto
         '
           onClick={scroll}
         >

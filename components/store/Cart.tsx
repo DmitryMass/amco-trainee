@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { useCartContext } from '../../hooks/useCartContext';
 import clsx from 'clsx';
 import closeLogo from '../../public/icons/close-logo.svg';
-import cartLogo from '../../public/icons/cart.svg';
+import cartLogo from '../../public/icons/basket.svg';
+import { QuantityCounter } from './QuantityCounter';
 
 export const Cart: FC = () => {
   const { cartItems, removeItem, clearCart } = useCartContext();
@@ -22,15 +23,8 @@ export const Cart: FC = () => {
         onClick={() => setIsOpen((prev) => !prev)}
         className='relative block pr-2.5'
       >
-        <Image src={cartLogo} alt={'shopping cart'} width={30} height={30} />
-        <div
-          className={clsx(
-            'flex justify-center items-center text-xs bg-orange-600 min-w-[20px] min-h-[20px] text-white rounded-full absolute top-[-4px] right-0 font-medium ',
-            quantityCount !== 0 ? 'animate-bounce' : ''
-          )}
-        >
-          {quantityCount}
-        </div>
+        <Image src={cartLogo} alt={'shopping cart'} width={25} height={25} />
+        <QuantityCounter count={quantityCount} />
       </button>
       <div
         className={clsx(

@@ -4,6 +4,7 @@ import type { CartItem, Product } from '../../types';
 type CartProviderProps = {
   children: React.ReactNode;
 };
+
 type CartContextProps = {
   cartItems: CartItem[];
   addToCart: (product: Product) => void;

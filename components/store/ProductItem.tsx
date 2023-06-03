@@ -3,15 +3,15 @@ import type { Product } from '../../types';
 import { useCartContext } from '../../hooks/useCartContext';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { LikedProduct } from './LikedProduct';
 
 type ProductItemProps = {
   product: Product;
 };
 
 export const ProductItem: FC<ProductItemProps> = ({ product }) => {
-  const { cartItems } = useCartContext();
+  const { cartItems, addToCart } = useCartContext();
   const [isDescription, setIsDescription] = useState(false);
-  const { addToCart } = useCartContext();
   const isInCart = cartItems.find((item) => item.id === product.id);
 
   useEffect(() => {
@@ -30,16 +30,8 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
         'shadow-[0px_2px_5px__0px_rgba(0,0,0,.15)] hover:shadow-[0px_2px_5px__0px_rgba(0,0,0,.25)]'
       )}
     >
-      <div
-        className={clsx(
-          'w-[20px] h-[17px] flex justify-center ml-auto transition-all duration-150 relative',
-          isDescription ? 'scale-[1.2]' : 'scale-100'
-        )}
-        onClick={() => setIsDescription((prev) => !prev)}
-      >
-        <Image src={'/icons/product-info.svg'} alt={'shopping cart'} fill />
-      </div>
-      <div className='flex items-center  justify-between  gap-2.5 mb-4'>
+      <LikedProduct product={product} />
+      <div className='flex items-center justify-between gap-2.5 mb-4'>
         <h4 className='text-sm text-gray-600 pointer-events-none'>
           {product.title}
         </h4>
@@ -51,6 +43,15 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
           />
         </div>
       </div>
+      <div
+        className={clsx(
+          'w-[20px] h-[17px] flex justify-center mr-auto mb-2 transition-all duration-150 relative',
+          isDescription ? 'scale-[1.2]' : 'scale-100'
+        )}
+        onClick={() => setIsDescription((prev) => !prev)}
+      >
+        <Image src={'/icons/product-info.svg'} alt={'shopping cart'} fill />
+      </div>
       <div className='flex justify-between items-center '>
         <span className='text-lg text-black font-medium pointer-events-none'>
           ${product.price}
@@ -58,9 +59,12 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
         <button
           disabled={!!isInCart}
           onClick={() => addToCart(product)}
-          className='text-[10px] rounded-md  uppercase bg-black text-white font-medium max-w-[150px] w-full p-1'
+          className={clsx(
+            'text-sm rounded-md uppercase text-white font-medium max-w-[120px] w-full p-1',
+            !!isInCart ? 'bg-gray-500' : 'bg-black'
+          )}
         >
-          {isInCart ? 'В Корзине' : 'Добавить в корзину'}
+          {isInCart ? 'Already in Cart' : 'Add to Cart'}
         </button>
       </div>
       {isDescription ? (

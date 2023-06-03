@@ -4,7 +4,11 @@ import { ProductItem } from './ProductItem';
 
 export const ProductList: FC<Products> = ({ products }) => {
   if (!products) {
-    return <div>Error fetching products</div>;
+    return (
+      <div className='pb-[20px] font-contrail fond-bold text-lg text-center'>
+        Error fetching products. Please try later...
+      </div>
+    );
   }
   return (
     <div className='grid grid-cols-4 max-[992px]:grid-cols-3 max-[768px]:grid-cols-2 max-[576px]:grid-cols-1 justify-items-center gap-2 pb-5'>

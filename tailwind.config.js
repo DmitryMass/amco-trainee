@@ -7,7 +7,7 @@ module.exports = {
   ],
   theme: {
     minHeight: {
-      previewCalc: 'calc(100vh - 57px)',
+      previewCalc: 'calc(100vh - 40px)',
     },
     extend: {
       fontFamily: {
