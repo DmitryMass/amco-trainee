@@ -23,7 +23,7 @@ export const Backdrop: FC = () => {
     <>
       {visible ? (
         <button
-          className='fixed bottom-5 right-5 w-9 h-9 bg-gray-700 rounded-full p-[10px] z-20'
+          className='fixed bottom-5 right-5 w-9 h-9 bg-gray-700 rounded-full p-[10px] z-10'
           onClick={handleBackdropClick}
         >
           <img

@@ -7,8 +7,8 @@ type CartProviderProps = {
 
 type CartContextProps = {
   cartItems: CartItem[];
-  addToCart: (product: Product) => void;
-  removeItem: (id: number) => void;
+  addToCart: (product: Product | CartItem) => void;
+  removeItem: (id: number, del?: boolean) => void;
   clearCart: () => void;
 };
 
@@ -30,7 +30,7 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
     }
   }, [cartItems]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product | CartItem) => {
     const currProduct = cartItems.find((item) => item.id === product.id);
     if (currProduct) {
       const updatedCartItems = cartItems.map((item) =>
@@ -47,8 +47,18 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
     localStorage.removeItem('cartItems');
   };
 
-  const removeItem = (id: number) => {
+  const removeItem = (id: number, del: boolean = false) => {
     const currProduct = cartItems.find((item) => item.id === id);
+    if (del) {
+      const updatedCartItems = cartItems.filter((item) => item.id !== id);
+      if (updatedCartItems.length === 0) {
+        clearCart();
+        return;
+      } else {
+        setCartItems(updatedCartItems);
+        return;
+      }
+    }
     if (currProduct) {
       if (currProduct.quantity > 1) {
         const updatedCartItems = cartItems.map((item) =>

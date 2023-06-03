@@ -9,7 +9,7 @@ export const QuantityCounter: FC<QuantityCounterProps> = ({ count }) => {
   return (
     <span
       className={clsx(
-        'flex justify-center items-center text-xs bg-orange-600 min-w-[15px] min-h-[15px] text-white rounded-full absolute top-[-4px] right-0 font-medium ',
+        'flex justify-center items-center text-xs bg-orange-600 w-[20px] h-[20px] text-white rounded-full absolute top-[-4px] right-0 font-medium ',
         count !== 0 ? 'animate-bounce' : ''
       )}
     >

@@ -23,7 +23,7 @@ export const Nav: FC = () => {
         <div
           className={clsx(
             'absolute left-[10%] overflow-hidden transition-all duration-300',
-            'max-sm:fixed max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:bg-[url(../public/images/black-bgc.png)] max-sm:flex max-sm:justify-center max-sm:z-30 max-sm:top-0',
+            'max-sm:fixed max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:bg-[url(../public/images/black-bgc.png)] max-sm:flex max-sm:justify-center max-sm:z-50 max-sm:top-0',
             isMenuOpen
               ? 'left-0 visible max-sm:top-0'
               : '-left-full invisible max-sm:left-0 max-sm:-top-full'
