@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
-import { useLikedContext } from '../../../hooks/useLikedContext';
 import { ProductItem } from '../../../components/store/ProductItem';
-import Link from 'next/link';
 import { LinkButton } from '../../../components/LinkButton';
+import { useLikedContext } from '../../../components/store/LikedProductProvider';
 
 const FavoriteList: FC = () => {
   const { likedProducts, clearList } = useLikedContext();
   return (
     <div className='max-w-[1320px] mx-auto px-[15px] py-[30px] font-contrail h-full relative'>
-      {likedProducts.length > 0 ? (
+      {likedProducts.length ? (
         <>
           <div className='flex justify-between items-center mb-2.5'>
             <h1 className='text-lg'>Your favourite products</h1>

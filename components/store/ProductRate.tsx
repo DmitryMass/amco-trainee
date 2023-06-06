@@ -8,6 +8,8 @@ type ProductRateProps = {
   };
 };
 
+// Компонент пока не используется оставил для заметок на будущие улучшения
+
 export const ProductRate: FC<ProductRateProps> = ({ rating }) => {
   return (
     <div className='flex items-center gap-2.5 py-[5px] ml-[10px]'>

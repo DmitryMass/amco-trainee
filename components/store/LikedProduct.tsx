@@ -1,9 +1,8 @@
 import Image from 'next/image';
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import type { Product } from '../../types';
 import clsx from 'clsx';
-import { useLikedContext } from '../../hooks/useLikedContext';
-import { QuantityCounter } from './QuantityCounter';
+import { useLikedContext } from './LikedProductProvider';
 
 type LikedProductProps = {
   product: Product;

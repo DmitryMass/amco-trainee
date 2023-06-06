@@ -1,13 +1,13 @@
-type PayLogoData = {
+type PayLogosData = {
   payMethod: string;
   name: string;
 };
-type ContactsData = {
+type SocialMediaLinks = {
   link: string;
   logo: string;
   name: string;
 };
-export const payLogo: PayLogoData[] = [
+export const payLogos: PayLogosData[] = [
   {
     payMethod: '/icons/visa.svg',
     name: 'Visa',
@@ -26,7 +26,7 @@ export const payLogo: PayLogoData[] = [
   },
 ];
 
-export const socialMedia: ContactsData[] = [
+export const socialMediaLinks: SocialMediaLinks[] = [
   {
     link: 'https://t.me/Dmitry_Mass',
     logo: '/icons/telegram-logo.svg',

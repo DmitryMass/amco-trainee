@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import type { CartItem as CartItemType } from '../../types';
-import { useCartContext } from '../../hooks/useCartContext';
 import Image from 'next/image';
+import { useCartContext } from './CartProvider';
 
 type CartItemProps = {
   cartItem: CartItemType;

@@ -1,9 +1,9 @@
 import React, { FC, useMemo, useState } from 'react';
 import Image from 'next/image';
-import { useCartContext } from '../../hooks/useCartContext';
 import clsx from 'clsx';
 import { QuantityCounter } from './QuantityCounter';
 import { CartItem } from './CartItem';
+import { useCartContext } from './CartProvider';
 
 export const Cart: FC = () => {
   const { cartItems, clearCart } = useCartContext();
@@ -58,7 +58,7 @@ export const Cart: FC = () => {
             />
           </button>
         </div>
-        {cartItems?.length ? (
+        {cartItems.length ? (
           <>
             <button
               className='bg-gray-300 text-black w-full hover:bg-white max-w-[200px] block'

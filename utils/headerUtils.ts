@@ -1,8 +1,8 @@
-type NavLink = {
+type NavLinks = {
   name: string;
   link: string;
 };
-export const navLink: NavLink[] = [
+export const navLinks: NavLinks[] = [
   {
     name: 'Home',
     link: '/',

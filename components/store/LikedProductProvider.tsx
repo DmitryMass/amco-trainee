@@ -1,4 +1,10 @@
-import React, { FC, createContext, useEffect, useState } from 'react';
+import React, {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import type { Product } from '../../types';
 
 type LikedProductProvider = {
@@ -61,4 +67,12 @@ export const LikedProductProvider: FC<LikedProductProvider> = ({
       {children}
     </LikedProductContext.Provider>
   );
+};
+
+export const useLikedContext = () => {
+  const ctx = useContext(LikedProductContext);
+  if (!ctx) {
+    throw new Error('Liked context is not provided');
+  }
+  return ctx;
 };

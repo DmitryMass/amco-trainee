@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import type { Product } from '../../types';
-import { useCartContext } from '../../hooks/useCartContext';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { LikedProduct } from './LikedProduct';
+import { useCartContext } from './CartProvider';
 
 type ProductItemProps = {
   product: Product;

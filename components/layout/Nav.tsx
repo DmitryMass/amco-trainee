@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import { Cart } from '../store/Cart';
-import { navLink } from '../../utils/headerUtils';
+import { navLinks } from '../../utils/headerUtils';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { QuantityCounter } from '../store/QuantityCounter';
-import { useLikedContext } from '../../hooks/useLikedContext';
+import { useLikedContext } from '../store/LikedProductProvider';
 
 export const Nav: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -50,7 +50,7 @@ export const Nav: FC = () => {
                 alt={'close logo'}
               />
             </button>
-            {navLink.map(({ link, name }) => (
+            {navLinks.map(({ link, name }) => (
               <Link
                 key={name}
                 onClick={() => setIsMenuOpen(false)}

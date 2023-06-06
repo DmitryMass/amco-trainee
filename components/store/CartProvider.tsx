@@ -1,4 +1,10 @@
-import React, { FC, createContext, useEffect, useState } from 'react';
+import React, {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import type { CartItem, Product } from '../../types';
 
 type CartProviderProps = {
@@ -83,4 +89,12 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
+};
+
+export const useCartContext = () => {
+  const ctx = useContext(CartContext);
+  if (!ctx) {
+    throw new Error('Cart context is not provided');
+  }
+  return ctx;
 };

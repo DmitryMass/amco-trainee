@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler, useRef } from 'react';
+import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import type { Products } from '../../types';
 import { ProductList } from '../../components/store/ProductList';
