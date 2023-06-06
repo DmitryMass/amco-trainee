@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<UserPageProps> = async (
 const UserPage: FC<UserPageProps> = ({ userData }) => {
   const router = useRouter();
   return (
-    <div className='max-w-[576px] w-full mx-auto px-[10px] py-[30px] bg-gray-200 rounded'>
+    <div className='max-w-[576px] w-full mx-auto px-[10px] py-[30px] rounded'>
       <button
         className='px-[10px] mb-[10px] py-[5px] rounded-lg bg-blue-500 text-white font-bold shadow-sm hover:shadow-md hover:scale-[1.03] duration-75'
         onClick={() => router.back()}

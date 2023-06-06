@@ -1,12 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Contrail+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html,
-body,
-#__next {
-  height: 100%;
+body {
+  height: auto;
 }
 body {
-  background-color: #cecece;
+  background: #ededed;
+}
+#__next {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+}
+footer {
+  grid-row-start: 2;
+  grid-row-end: 3;
 }
